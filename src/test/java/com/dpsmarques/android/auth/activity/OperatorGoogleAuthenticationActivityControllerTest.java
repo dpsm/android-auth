@@ -1,13 +1,9 @@
 package com.dpsmarques.android.auth.activity;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 
 import com.dpsmarques.android.auth.GoogleOAuthTokenOnSubscribe;
-import com.dpsmarques.android.auth.GoogleOauthTokenObservable;
 import com.dpsmarques.android.auth.OperatorGoogleAuthenticationController;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.UserRecoverableAuthException;
@@ -18,8 +14,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Matchers;
-import org.mockito.Mockito;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -27,13 +21,20 @@ import java.io.IOException;
 
 import rx.Observable;
 import rx.Observer;
-import rx.observers.Observers;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = "src/main/AndroidManifest.xml", emulateSdk = 18)
 public class OperatorGoogleAuthenticationActivityControllerTest extends TestCase {
+
+    private static final String GOOGLE_PRINT_SCOPE = "oauth2:https://www.googleapis.com/auth/cloudprint";
 
     @Test(expected = IllegalArgumentException.class)
     public void givenNullActivityWhenInstantiatedThenThrows() {
@@ -43,7 +44,7 @@ public class OperatorGoogleAuthenticationActivityControllerTest extends TestCase
     @Test
     public void givenObservableEmitsTokenWhenSubscribedThenListenerCalled() throws IOException, GoogleAuthException {
         final GoogleAuthenticationActivity activity = mock(GoogleAuthenticationActivity.class);
-        final GoogleOAuthTokenOnSubscribe onSubscribe = spy(new GoogleOAuthTokenOnSubscribe(activity, "com.google"));
+        final GoogleOAuthTokenOnSubscribe onSubscribe = spy(new GoogleOAuthTokenOnSubscribe(activity, "com.google", GOOGLE_PRINT_SCOPE));
         doReturn("token_token").when(onSubscribe).getToken();
 
         final Observable<String> observable = Observable.create(onSubscribe)
@@ -59,7 +60,7 @@ public class OperatorGoogleAuthenticationActivityControllerTest extends TestCase
     @Test
     public void givenObservableThrowsExceptionWhenSubscribedListenerCalled() throws IOException, GoogleAuthException {
         final GoogleAuthenticationActivity activity = mock(GoogleAuthenticationActivity.class);
-        final GoogleOAuthTokenOnSubscribe onSubscribe = spy(new GoogleOAuthTokenOnSubscribe(activity, "com.google"));
+        final GoogleOAuthTokenOnSubscribe onSubscribe = spy(new GoogleOAuthTokenOnSubscribe(activity, "com.google", GOOGLE_PRINT_SCOPE));
 
         final Throwable throwable = new IOException();
         doThrow(throwable).when(onSubscribe).getToken();
@@ -82,7 +83,7 @@ public class OperatorGoogleAuthenticationActivityControllerTest extends TestCase
     @Test
     public void givenObservableThrowsUserRecoverableAuthExceptionWhenSubscribedListenerCalled() throws Exception {
         final GoogleAuthenticationActivity activity = mock(GoogleAuthenticationActivity.class);
-        final GoogleOAuthTokenOnSubscribe onSubscribe = spy(new GoogleOAuthTokenOnSubscribe(activity, "com.google"));
+        final GoogleOAuthTokenOnSubscribe onSubscribe = spy(new GoogleOAuthTokenOnSubscribe(activity, "com.google", GOOGLE_PRINT_SCOPE));
 
         final Intent intent = new Intent();
         final Throwable throwable = new UserRecoverableAuthException("", intent);
@@ -104,7 +105,7 @@ public class OperatorGoogleAuthenticationActivityControllerTest extends TestCase
     @Test
     public void givenObservableThrowsUserRecoverableAuthExceptionWhenSubscribedAndUserResolvesThenListenerCalled() throws Exception {
         final GoogleAuthenticationActivity activity = mock(GoogleAuthenticationActivity.class);
-        final GoogleOAuthTokenOnSubscribe onSubscribe = spy(new GoogleOAuthTokenOnSubscribe(activity, "com.google"));
+        final GoogleOAuthTokenOnSubscribe onSubscribe = spy(new GoogleOAuthTokenOnSubscribe(activity, "com.google", GOOGLE_PRINT_SCOPE));
 
         final Intent intent = new Intent();
         final Throwable throwable = new UserRecoverableAuthException("", intent);

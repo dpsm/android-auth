@@ -20,7 +20,6 @@
         <android.maven.version>3.9.0-rc.2</android.maven.version>
 
         <!-- Dependencies -->
-        <android.version>4.4.2_r3</android.version>
         <android.platform>19</android.platform>
 
         <!-- Test Dependencies -->
@@ -38,7 +37,7 @@
         <dependency>
             <groupId>android</groupId>
             <artifactId>android</artifactId>
-            <version>${android.version}</version>
+            <version>4.4.2_r3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -122,9 +121,10 @@
                         <lint>
                             <enableHtml>true</enableHtml>
                             <skip>false</skip>
-                            <failOnError>true</failOnError>
+                            <failOnError>false</failOnError>
                             <enableClasspath>true</enableClasspath>
                             <classpath>${project.build.outputDirectory}</classpath>
+                            <config>${project.basedir}/lint.xml</config>
                         </lint>
                     </configuration>
                 </plugin>
@@ -183,35 +183,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
-
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>playhaven-public</id>
-            <name>Upsight Public Repository</name>
-            <url>https://nexus.playhaven.com/nexus/content/groups/public/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>warn</checksumPolicy>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-                <checksumPolicy>warn</checksumPolicy>
-                <updatePolicy>daily</updatePolicy>
-            </releases>
-        </repository>
-        <repository>
-            <id>oss.sonatype.org-snapshots</id>
-            <name>OSS Snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <reporting>
         <plugins>

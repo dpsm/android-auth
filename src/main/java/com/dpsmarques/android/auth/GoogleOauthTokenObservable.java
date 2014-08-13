@@ -42,10 +42,12 @@ public class GoogleOauthTokenObservable extends Observable<String> {
      *
      * @param context the context to use to interact with the Android system.
      * @param accountName the target Google account name.
+     * @param scope OAuth token scope.
      * @return an instance of the Observable.
      */
     public static GoogleOauthTokenObservable create(final Context context,
-                                                    final String accountName) {
+                                                    final String accountName,
+                                                    final String scope) {
         if (context == null) {
             throw new IllegalArgumentException("Context can not be null!");
         }
@@ -54,7 +56,7 @@ public class GoogleOauthTokenObservable extends Observable<String> {
             throw new IllegalArgumentException("Account name can not be null!");
         }
 
-        return new GoogleOauthTokenObservable(context, accountName);
+        return new GoogleOauthTokenObservable(context, accountName, scope);
     }
 
     /**
@@ -64,16 +66,18 @@ public class GoogleOauthTokenObservable extends Observable<String> {
      * @param fragment the Fragment from which Activity context to use to interact with the
      *                 Android system.
      * @param accountName the target Google account name.
+     * @param scope OAuth token scope.
      * @return an instance of the Observable.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static GoogleOauthTokenObservable create(final Fragment fragment,
-                                                    final String accountName) {
+                                                    final String accountName,
+                                                    final String scope) {
         if (fragment == null) {
             throw new IllegalArgumentException("Fragment can not be null!");
         }
 
-        return create(fragment.getActivity(), accountName);
+        return create(fragment.getActivity(), accountName, scope);
     }
 
     /**
@@ -83,16 +87,18 @@ public class GoogleOauthTokenObservable extends Observable<String> {
      * @param fragment the Fragment from which Activity context to use to interact with the
      *                 Android system.
      * @param accountName the target Google account name.
+     * @param scope OAuth token scope.
      * @return an instance of the Observable.
      */
     public static GoogleOauthTokenObservable create(final android.support.v4.app.Fragment fragment,
-                                                    final String accountName) {
+                                                    final String accountName,
+                                                    final String scope) {
 
         if (fragment == null) {
             throw new IllegalArgumentException("Fragment can not be null!");
         }
 
-        return create(fragment.getActivity(), accountName);
+        return create(fragment.getActivity(), accountName, scope);
     }
 
     /**
@@ -101,9 +107,11 @@ public class GoogleOauthTokenObservable extends Observable<String> {
      *
      * @param context the context to use to interact with the Android system.
      * @param accountName the target Google account name.
+     * @param scope OAuth toke scope.
      */
-    public GoogleOauthTokenObservable(final Context context, final String accountName) {
-        super(new GoogleOAuthTokenOnSubscribe(context, accountName));
+    public GoogleOauthTokenObservable(final Context context, final String accountName,
+                                      final String scope) {
+        super(new GoogleOAuthTokenOnSubscribe(context, accountName, scope));
     }
 
     /**

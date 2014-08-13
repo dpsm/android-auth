@@ -18,60 +18,62 @@ import org.robolectric.annotation.Config;
 @Config(manifest = "src/main/AndroidManifest.xml", emulateSdk = 18)
 public class GoogleOauthTokenObservableTest extends TestCase {
 
+    private static final String GOOGLE_PRINT_SCOPE = "oauth2:https://www.googleapis.com/auth/cloudprint";
+
     public static final String TOKEN = "token_token";
 
     @Test(expected = IllegalArgumentException.class)
     public void givenNullContextWhenCreateCalledThrowsException() throws Exception {
-        GoogleOauthTokenObservable.create((Context) null, null);
+        GoogleOauthTokenObservable.create((Context) null, null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void givenNullFragmentWhenCreateCalledThrowsException() throws Exception {
-        GoogleOauthTokenObservable.create((Fragment) null, null);
+        GoogleOauthTokenObservable.create((Fragment) null, null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void givenNullSupportFragmentWhenCreateCalledThrowsException() throws Exception {
-        GoogleOauthTokenObservable.create((android.support.v4.app.Fragment) null, null);
+        GoogleOauthTokenObservable.create((android.support.v4.app.Fragment) null, null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void givenNullContextWithValidAccountWhenCreateCalledThrowsException() throws Exception {
-        GoogleOauthTokenObservable.create((Context) null, "");
+        GoogleOauthTokenObservable.create((Context) null, "", "");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void givenNullFragmentWithValidAccountWhenCreateCalledThrowsException() throws Exception {
-        GoogleOauthTokenObservable.create((Fragment) null, "");
+        GoogleOauthTokenObservable.create((Fragment) null, "", "");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void givenNullSupportFragmentWithValidAccountWhenCreateCalledThrowsException() throws Exception {
-        GoogleOauthTokenObservable.create((android.support.v4.app.Fragment) null, "");
+        GoogleOauthTokenObservable.create((android.support.v4.app.Fragment) null, "", "");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void givenContextWithNullAccountWhenCreateCalledThenThrows() throws Exception {
-        GoogleOauthTokenObservable.create(Robolectric.application, null);
+        GoogleOauthTokenObservable.create(Robolectric.application, null, null);
         fail("Should not create instance");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void givenFragmentWithNullAccountWhenCreateCalledThenThrows() throws Exception {
-        GoogleOauthTokenObservable.create(Mockito.mock(Fragment.class), null);
+        GoogleOauthTokenObservable.create(Mockito.mock(Fragment.class), null, null);
         fail("Should not create instance");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void givenSupportFragmentWithNullAccountWhenCreateCalledThenThrows() throws Exception {
-        GoogleOauthTokenObservable.create(Mockito.mock(android.support.v4.app.Fragment.class), null);
+        GoogleOauthTokenObservable.create(Mockito.mock(android.support.v4.app.Fragment.class), null, null);
         fail("Should not create instance");
     }
 
     @Test
     public void givenContextWithAccountWhenCreateCalledThenSucceeds() throws Exception {
         final GoogleOauthTokenObservable observable = GoogleOauthTokenObservable
-                .create(Robolectric.application, "com.google");
+                .create(Robolectric.application, "com.google", GOOGLE_PRINT_SCOPE);
         assertNotNull(observable);
     }
 
@@ -80,7 +82,7 @@ public class GoogleOauthTokenObservableTest extends TestCase {
         final Fragment fragment = Mockito.mock(Fragment.class);
         Mockito.when(fragment.getActivity()).thenReturn(Mockito.mock(Activity.class));
         final GoogleOauthTokenObservable observable = GoogleOauthTokenObservable
-                .create(fragment, "com.google");
+                .create(fragment, "com.google", GOOGLE_PRINT_SCOPE);
         assertNotNull(observable);
     }
 
@@ -89,14 +91,14 @@ public class GoogleOauthTokenObservableTest extends TestCase {
         final android.support.v4.app.Fragment fragment = Mockito.mock(android.support.v4.app.Fragment.class);
         Mockito.when(fragment.getActivity()).thenReturn(Mockito.mock(FragmentActivity.class));
         final GoogleOauthTokenObservable observable = GoogleOauthTokenObservable
-                .create(fragment, "com.google");
+                .create(fragment, "com.google", GOOGLE_PRINT_SCOPE);
         assertNotNull(observable);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void givenObservableWhenAuthenticateWithNullActivityThenThrows() throws Exception {
         final GoogleOauthTokenObservable observable = GoogleOauthTokenObservable
-                .create(Robolectric.application, "com.google");
+                .create(Robolectric.application, "com.google", GOOGLE_PRINT_SCOPE);
         assertNotNull(observable);
 
         observable.authenticateUsing((Activity) null, 0);
@@ -107,7 +109,7 @@ public class GoogleOauthTokenObservableTest extends TestCase {
         final Fragment fragment = Mockito.mock(Fragment.class);
         Mockito.when(fragment.getActivity()).thenReturn(Mockito.mock(Activity.class));
         final GoogleOauthTokenObservable observable = GoogleOauthTokenObservable
-                .create(fragment, "com.google");
+                .create(fragment, "com.google", GOOGLE_PRINT_SCOPE);
         assertNotNull(observable);
 
         observable.authenticateUsing((Fragment) null, 0);
@@ -118,87 +120,10 @@ public class GoogleOauthTokenObservableTest extends TestCase {
         final android.support.v4.app.Fragment fragment = Mockito.mock(android.support.v4.app.Fragment.class);
         Mockito.when(fragment.getActivity()).thenReturn(Mockito.mock(FragmentActivity.class));
         final GoogleOauthTokenObservable observable = GoogleOauthTokenObservable
-                .create(fragment, "com.google");
+                .create(fragment, "com.google", GOOGLE_PRINT_SCOPE);
         assertNotNull(observable);
 
         observable.authenticateUsing((android.support.v4.app.Fragment) null, 0);
     }
 
-//
-//    @Test(expected = IllegalArgumentException.class)
-//    public void givenObservableWhenAuthenticateUsingNonListenerActivityThrows() throws Exception {
-//        final GoogleOAuthTokenOnSubscribe onSubscribe = Mockito.spy(
-//                new GoogleOAuthTokenOnSubscribe(Robolectric.application, "com.google"));
-//        Mockito.doReturn(TOKEN).when(onSubscribe).getToken();
-//
-//        final Activity activity = Mockito.mock(Activity.class);
-//        new GoogleOauthTokenObservable(onSubscribe).authenticateUsing(activity, 1);
-//        fail("Should not have returned from authenticateWith(..)");
-//    }
-//
-//    @Test
-//    public void givenObservableWhenAuthenticateUsingAndValidTokenAvailableThenListenerCalled() throws Exception {
-//        final GoogleOAuthTokenOnSubscribe onSubscribe = Mockito.spy(
-//                new GoogleOAuthTokenOnSubscribe(Robolectric.application, "com.google"));
-//        Mockito.doReturn(TOKEN).when(onSubscribe).getToken();
-//
-//        final GoogleAuthenticationActivity activity = Mockito.mock(GoogleAuthenticationActivity.class);
-//        final Observable<String> observable = new GoogleOauthTokenObservable(onSubscribe)
-//                .authenticateUsing(activity, 1);
-//        final Observer<String> observer = Mockito.mock(Observer.class);
-//        observable.subscribe(observer);
-//
-//        Mockito.verify(activity).onAuthenticationSucceeded(TOKEN);
-//        Mockito.verify(activity, Mockito.never()).onAuthenticationError(Matchers.any(Throwable.class));
-//        Mockito.verify(activity, Mockito.never()).onRetryAuthentication();
-//    }
-//
-//    @Test
-//    public void givenObservableWhenAuthenticateUsingAndTokenFailsThenListenerCalled() throws Exception {
-//        final GoogleOAuthTokenOnSubscribe onSubscribe = Mockito.spy(
-//                new GoogleOAuthTokenOnSubscribe(Robolectric.application, "com.google"));
-//
-//        final Intent intent = new Intent();
-//        final UserRecoverableAuthException exception = new UserRecoverableAuthException("", intent);
-//
-//        Mockito.doThrow(exception).when(onSubscribe).getToken();
-//
-//        final GoogleAuthenticationActivity activity = Mockito.mock(GoogleAuthenticationActivity.class);
-//        final Observable<String> observable = new GoogleOauthTokenObservable(onSubscribe)
-//                .authenticateUsing(activity, 1);
-//        final Observer<String> observer = Mockito.mock(Observer.class);
-//        observable.subscribe(observer);
-//
-//        Mockito.verify(activity).startActivityForResult(intent, 2);
-//
-//        Mockito.verify(activity, Mockito.never()).onAuthenticationSucceeded(TOKEN);
-//        Mockito.verify(activity, Mockito.never()).onAuthenticationError(Matchers.any(Throwable.class));
-//        Mockito.verify(activity, Mockito.never()).onRetryAuthentication();
-//    }
-//
-//    @Test
-//    public void givenObservableWhenAuthenticateUsingAndTokenFailsWithUnrecoverableErrorThenListenerCalled() throws Exception {
-//        final GoogleOAuthTokenOnSubscribe onSubscribe = Mockito.spy(
-//                new GoogleOAuthTokenOnSubscribe(Robolectric.application, "com.google"));
-//
-//        final Throwable throwable = new IOException();
-//        Mockito.doThrow(throwable).when(onSubscribe).getToken();
-//
-//        final GoogleAuthenticationActivity activity = Mockito.mock(GoogleAuthenticationActivity.class);
-//        final Observable<String> observable = new GoogleOauthTokenObservable(onSubscribe)
-//                .authenticateUsing(activity, 1);
-//        final Observer<String> observer = Mockito.mock(Observer.class);
-//        observable.subscribe(observer);
-//
-//        Mockito.verify(activity, Mockito.never()).startActivityForResult(Matchers.any(Intent.class), Matchers.anyInt());
-//
-//        Mockito.verify(activity, Mockito.never()).onAuthenticationSucceeded(TOKEN);
-//        Mockito.verify(activity).onAuthenticationError(throwable);
-//        Mockito.verify(activity, Mockito.never()).onRetryAuthentication();
-//    }
-//
-//    private abstract static class GoogleAuthenticationActivity extends Activity implements
-//            OperatorGoogleAuthenticationController.GoogleAuthenticationListener {
-//
-//    }
 }

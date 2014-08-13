@@ -22,34 +22,36 @@ import rx.Observer;
 @Config(manifest = "src/main/AndroidManifest.xml", emulateSdk = 18)
 public class GoogleOAuthTokenOnSubscribeTest extends TestCase {
 
+    private static final String GOOGLE_PRINT_SCOPE = "oauth2:https://www.googleapis.com/auth/cloudprint";
+
     public static final String TOKEN = "token_token";
 
     @Test(expected = IllegalArgumentException.class)
     public void givenNullArgumentsThrows() {
-        new GoogleOAuthTokenOnSubscribe(null, null);
+        new GoogleOAuthTokenOnSubscribe(null, null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void givenNullAccountNameThrows() {
-        new GoogleOAuthTokenOnSubscribe(Robolectric.application, null);
+        new GoogleOAuthTokenOnSubscribe(Robolectric.application, null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void givenNullContextThrows() {
-        new GoogleOAuthTokenOnSubscribe(null, "");
+        new GoogleOAuthTokenOnSubscribe(null, "", "");
     }
 
     @Test
     public void givenValidArgumentsWhenCreatedCreates() {
         final GoogleOAuthTokenOnSubscribe onSubscribe =
-                new GoogleOAuthTokenOnSubscribe(Robolectric.application, "someone");
+                new GoogleOAuthTokenOnSubscribe(Robolectric.application, "someone", "scope");
         assertNotNull(onSubscribe);
     }
 
     @Test
     public void givenTokenAvailableWhenSubscribedTokenEmitted() throws Exception {
         final GoogleOAuthTokenOnSubscribe onSubscribe = Mockito.spy(
-                new GoogleOAuthTokenOnSubscribe(Robolectric.application, "com.google"));
+                new GoogleOAuthTokenOnSubscribe(Robolectric.application, "com.google", GOOGLE_PRINT_SCOPE));
         Mockito.doReturn(TOKEN).when(onSubscribe).getToken();
 
         final Observable<String> observable = Observable.create(onSubscribe);
@@ -64,7 +66,7 @@ public class GoogleOAuthTokenOnSubscribeTest extends TestCase {
     @Test
     public void givenTokenRetrievalFailsWhenSubscribedOnErrorCalled() throws Exception {
         final GoogleOAuthTokenOnSubscribe onSubscribe = Mockito.spy(
-                new GoogleOAuthTokenOnSubscribe(Robolectric.application, "com.google"));
+                new GoogleOAuthTokenOnSubscribe(Robolectric.application, "com.google", GOOGLE_PRINT_SCOPE));
 
         final Throwable throwable = new IllegalStateException();
         Mockito.doThrow(throwable).when(onSubscribe).getToken();

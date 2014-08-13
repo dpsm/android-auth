@@ -34,11 +34,11 @@ import rx.Subscriber;
  */
 public class GoogleOAuthTokenOnSubscribe implements Observable.OnSubscribe<String> {
 
-    private static final String GOOGLE_PRINT_SCOPE = "oauth2:https://www.googleapis.com/auth/cloudprint";
-
     private final Context mContext;
 
     private final String mAccountName;
+
+    private final String mScope;
 
     /**
      * Creates an instance of a GoogleOAuthTokenOnSubscribe bound to the specified Context
@@ -46,8 +46,10 @@ public class GoogleOAuthTokenOnSubscribe implements Observable.OnSubscribe<Strin
      *
      * @param context the context to use to interact with the Android system.
      * @param accountName the target Google account name.
+     * @param scope the OAuth token scope.
      */
-    public GoogleOAuthTokenOnSubscribe(final Context context, final String accountName) {
+    public GoogleOAuthTokenOnSubscribe(final Context context, final String accountName,
+                                       final String scope) {
         if (context == null) {
             throw new IllegalArgumentException("Context can not be null.");
         }
@@ -56,8 +58,13 @@ public class GoogleOAuthTokenOnSubscribe implements Observable.OnSubscribe<Strin
             throw new IllegalArgumentException("Account name can not be null or empty.");
         }
 
+        if (TextUtils.isEmpty(scope)) {
+            throw new IllegalArgumentException("Token scope can not be null or empty.");
+        }
+
         mContext = context;
         mAccountName = accountName;
+        mScope = scope;
     }
 
     @Override
@@ -84,6 +91,6 @@ public class GoogleOAuthTokenOnSubscribe implements Observable.OnSubscribe<Strin
     }
 
     public String getToken() throws GoogleAuthException, IOException {
-        return GoogleAuthUtil.getToken(mContext, mAccountName, GOOGLE_PRINT_SCOPE);
+        return GoogleAuthUtil.getToken(mContext, mAccountName, mScope);
     }
 }

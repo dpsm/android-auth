@@ -37,6 +37,8 @@ import static org.mockito.Mockito.when;
 @Config(manifest = "src/main/AndroidManifest.xml", emulateSdk = 18)
 public class OperatorGoogleAuthenticationSupportFragmentControllerTest extends TestCase {
 
+    private static final String GOOGLE_PRINT_SCOPE = "oauth2:https://www.googleapis.com/auth/cloudprint";
+
     @Test(expected = IllegalArgumentException.class)
     public void givenNullActivityWhenInstantiatedThenThrows() {
         new OperatorGoogleAuthenticationSupportFragmentController(null, 0);
@@ -48,7 +50,7 @@ public class OperatorGoogleAuthenticationSupportFragmentControllerTest extends T
         final FragmentActivity activity = mock(FragmentActivity.class);
         when(fragment.getActivity()).thenReturn(activity);
 
-        final GoogleOAuthTokenOnSubscribe onSubscribe = spy(new GoogleOAuthTokenOnSubscribe(fragment.getActivity(), "com.google"));
+        final GoogleOAuthTokenOnSubscribe onSubscribe = spy(new GoogleOAuthTokenOnSubscribe(fragment.getActivity(), "com.google", GOOGLE_PRINT_SCOPE));
         doReturn("token_token").when(onSubscribe).getToken();
 
         final Observable<String> observable = Observable.create(onSubscribe)
@@ -67,7 +69,7 @@ public class OperatorGoogleAuthenticationSupportFragmentControllerTest extends T
         final FragmentActivity activity = mock(FragmentActivity.class);
         when(fragment.getActivity()).thenReturn(activity);
 
-        final GoogleOAuthTokenOnSubscribe onSubscribe = spy(new GoogleOAuthTokenOnSubscribe(fragment.getActivity(), "com.google"));
+        final GoogleOAuthTokenOnSubscribe onSubscribe = spy(new GoogleOAuthTokenOnSubscribe(fragment.getActivity(), "com.google", GOOGLE_PRINT_SCOPE));
 
         final Throwable throwable = new IOException();
         doThrow(throwable).when(onSubscribe).getToken();
@@ -93,7 +95,7 @@ public class OperatorGoogleAuthenticationSupportFragmentControllerTest extends T
         final FragmentActivity activity = mock(FragmentActivity.class);
         when(fragment.getActivity()).thenReturn(activity);
 
-        final GoogleOAuthTokenOnSubscribe onSubscribe = spy(new GoogleOAuthTokenOnSubscribe(fragment.getActivity(), "com.google"));
+        final GoogleOAuthTokenOnSubscribe onSubscribe = spy(new GoogleOAuthTokenOnSubscribe(fragment.getActivity(), "com.google", GOOGLE_PRINT_SCOPE));
 
         final Intent intent = new Intent();
         final Throwable throwable = new UserRecoverableAuthException("", intent);
@@ -118,7 +120,7 @@ public class OperatorGoogleAuthenticationSupportFragmentControllerTest extends T
         final FragmentActivity activity = mock(FragmentActivity.class);
         when(fragment.getActivity()).thenReturn(activity);
 
-        final GoogleOAuthTokenOnSubscribe onSubscribe = spy(new GoogleOAuthTokenOnSubscribe(fragment.getActivity(), "com.google"));
+        final GoogleOAuthTokenOnSubscribe onSubscribe = spy(new GoogleOAuthTokenOnSubscribe(fragment.getActivity(), "com.google", GOOGLE_PRINT_SCOPE));
 
         final Intent intent = new Intent();
         final Throwable throwable = new UserRecoverableAuthException("", intent);
