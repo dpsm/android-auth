@@ -91,6 +91,15 @@
                     <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                     <artifactId>android-maven-plugin</artifactId>
                     <version>3.9.0-rc.2</version>
+                    <executions>
+                        <execution>
+                            <id>lint</id>
+                            <goals>
+                                <goal>lint</goal>
+                            </goals>
+                            <phase>install</phase>
+                        </execution>
+                    </executions>
                     <configuration>
                         <extractDuplicates>true</extractDuplicates>
                         <sourceManifestFile>${project.basedir}/src/main/AndroidManifest.xml
@@ -111,8 +120,11 @@
                             <config>proguard.cfg</config>
                         </proguard>
                         <lint>
-                            <htmlReport>true</htmlReport>
+                            <enableHtml>true</enableHtml>
                             <skip>false</skip>
+                            <failOnError>true</failOnError>
+                            <enableClasspath>true</enableClasspath>
+                            <classpath>${project.build.outputDirectory}</classpath>
                         </lint>
                     </configuration>
                 </plugin>
