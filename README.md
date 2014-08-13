@@ -62,6 +62,22 @@ public void onAccountSelected(final String accountName) {
 Given that there might be a need for the user to authorize access to your application though a Google Play authorization screen, we provide an operator that hooks into a Fragment or Activity to ease the authorization flow.
 ```
 @Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    mAuthenticationHelper = new OperatorGoogleAuthenticationActivityController(this, REQUEST_CODE_BASE + 100);
+    ...
+}
+
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+   if (mAuthenticationHelper.handleActivityResult(requestCode, resultCode, data)) {
+       return; // Handled by helper...
+   }
+   ...
+}
+
+@Override
 public void onAccountSelected(final String accountName) {
     GoogleOauthTokenObservable.create(this, accountName, GOOGLE_PRINT_SCOPE)
         .authenticateUsing(this, REQUEST_CODE_BASE) // <= This registers the Fragment/Activity to the authorization flow!
@@ -75,7 +91,7 @@ public void onAccountSelected(final String accountName) {
     ...
 }
 
- @Override
+@Override
 public void onAuthenticationError(final Throwable throwable) {
     Toast.makeText(this, "Unknown authentication error!", Toast.LENGTH_SHORT).show();
 }
@@ -90,5 +106,5 @@ public void onRetryAuthentication() {
     Toast.makeText(this, "Retry Authentication!", Toast.LENGTH_SHORT).show();
 }
 ```
-```
+
 [1]: https://github.com/Netflix/RxJava
