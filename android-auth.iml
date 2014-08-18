@@ -88,7 +88,7 @@
     <orderEntry type="library" name="Maven: com.netflix.rxjava:rxjava-android:0.20.0-RC3" level="project" />
     <orderEntry type="library" name="Maven: com.netflix.rxjava:rxjava-core:0.20.0-RC3" level="project" />
     <orderEntry type="library" name="Maven: com.android.support:support-v4:19.0.1" level="project" />
-    <orderEntry type="library" name="Maven: com.google.android.gms:play-services:aar:5.2.08" level="project" />
+    <orderEntry type="library" name="Maven: com.google.android.gms:play-services:aar:5.0.89" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-module-junit4:1.5.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-module-junit4-common:1.5.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-core:1.5.5" level="project" />
@@ -97,7 +97,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-api-mockito:1.5.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-api-support:1.5.5" level="project" />
     <orderEntry type="module-library">
-      <library name="Maven: com.google.android.gms:play-services:5.2.08">
+      <library name="Maven: com.google.android.gms:play-services:5.0.89">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/target/unpacked-libs/cgag_play-services/classes.jar!/" />
         </CLASSES>
