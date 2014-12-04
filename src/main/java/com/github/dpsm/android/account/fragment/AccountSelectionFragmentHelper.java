@@ -13,18 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.dpsmarques.android.account.fragment;
+package com.github.dpsm.android.account.fragment;
 
+import android.annotation.TargetApi;
+import android.app.Fragment;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
+import android.os.Build;
 
-import com.dpsmarques.android.account.AccountSelectionHelper;
+import com.github.dpsm.android.account.AccountSelectionHelper;
 
 /**
  * This class extends AccountSelectionHelper in order to allow the account selection process to
- * be bound to the support Fragment managed lifecycle.
+ * be bound to the Fragment managed lifecycle.
  */
-public class AccountSelectionSupportFragmentHelper extends AccountSelectionHelper<Fragment> {
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+public class AccountSelectionFragmentHelper extends AccountSelectionHelper<Fragment> {
 
     /**
      * Creates a helper instance bound to the specified Fragment and uses the base request
@@ -37,7 +40,7 @@ public class AccountSelectionSupportFragmentHelper extends AccountSelectionHelpe
      * @param fragment target Activity to bind to.
      * @param requestCodeBase base request code to start the account selection Activity.
      */
-    public AccountSelectionSupportFragmentHelper(final Fragment fragment, final int requestCodeBase) {
+    public AccountSelectionFragmentHelper(final Fragment fragment, final int requestCodeBase) {
         super(fragment, requestCodeBase);
     }
 

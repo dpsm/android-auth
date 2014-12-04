@@ -13,36 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.dpsmarques.android.account.activity;
+package com.github.dpsm.android.account.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 
-import com.dpsmarques.android.account.AccountSelectionHelper;
+import com.github.dpsm.android.account.AccountSelectionHelper;
 
 /**
  * This class extends AccountSelectionHelper in order to allow the account selection process to
- * be bound to the Activity managed lifecycle.
+ * be bound to the support Fragment managed lifecycle.
  */
-public class AccountSelectionActivityHelper extends AccountSelectionHelper<Activity> {
+public class AccountSelectionSupportFragmentHelper extends AccountSelectionHelper<Fragment> {
 
     /**
-     * Creates a helper instance bound to the specified Activity and uses the base request
+     * Creates a helper instance bound to the specified Fragment and uses the base request
      * code for starting the account selection Activity if needed.
      * <br/>
      *
-     * The specified Activity must implement AccountSelectionListener and must forward calls
+     * The specified Fragment must implement AccountSelectionListener and must forward calls
      * from it's onActivityResult(..) to this class.
      *
-     * @param activity target Activity to bind to.
+     * @param fragment target Activity to bind to.
      * @param requestCodeBase base request code to start the account selection Activity.
      */
-    public AccountSelectionActivityHelper(final Activity activity, final int requestCodeBase) {
-        super(activity, requestCodeBase);
+    public AccountSelectionSupportFragmentHelper(final Fragment fragment, final int requestCodeBase) {
+        super(fragment, requestCodeBase);
     }
 
     @Override
-    protected void startActivityForResult(final Activity androidComponent,
+    protected void startActivityForResult(final Fragment androidComponent,
                                           final Intent intent,
                                           final int requestCode) {
         androidComponent.startActivityForResult(intent, requestCode);

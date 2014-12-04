@@ -1,12 +1,12 @@
-package com.dpsmarques.android.auth.fragment;
+package com.github.dpsm.android.auth.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
-import com.dpsmarques.android.auth.GoogleOAuthTokenOnSubscribe;
-import com.dpsmarques.android.auth.OperatorGoogleAuthenticationController;
+import com.github.dpsm.android.auth.GoogleOAuthTokenOnSubscribe;
+import com.github.dpsm.android.auth.OperatorGoogleAuthenticationController;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 

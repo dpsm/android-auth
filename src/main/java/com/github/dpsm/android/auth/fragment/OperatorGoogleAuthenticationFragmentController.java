@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.dpsmarques.android.auth.fragment;
+package com.github.dpsm.android.auth.fragment;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -21,7 +21,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Build;
 
-import com.dpsmarques.android.auth.OperatorGoogleAuthenticationController;
+import com.github.dpsm.android.auth.OperatorGoogleAuthenticationController;
 
 /**
  * This class extends OperatorGoogleAuthenticationController binding the authentication flow

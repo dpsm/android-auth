@@ -13,42 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.dpsmarques.android.auth.fragment;
+package com.github.dpsm.android.auth.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 
-import com.dpsmarques.android.auth.OperatorGoogleAuthenticationController;
+import com.github.dpsm.android.auth.OperatorGoogleAuthenticationController;
 
 /**
  * This class extends OperatorGoogleAuthenticationController binding the authentication flow
- * to a Fragment Activity managed life-cycle.
+ * to an Android Activity managed life-cycle.
  */
-public class OperatorGoogleAuthenticationSupportFragmentController extends
-        OperatorGoogleAuthenticationController<Fragment> {
+public class OperatorGoogleAuthenticationActivityController extends
+        OperatorGoogleAuthenticationController<Activity> {
 
     /**
      * Creates an instance of this class bound to the specified Android component ans starts the
      * authentication Activity using the specified request code as a base number.
      *
-     * @param fragment a Fragment capable of launching Activities.
+     * @param activity an Activity capable of launching Activities.
      * @param requestCodeBase base request code.
      */
-    public OperatorGoogleAuthenticationSupportFragmentController(final Fragment fragment,
-                                                                 final int requestCodeBase) {
-        super(fragment, requestCodeBase);
+    public OperatorGoogleAuthenticationActivityController(final Activity activity,
+                                                          final int requestCodeBase) {
+        super(activity, requestCodeBase);
     }
 
     @Override
-    protected void startActivityForResult(final Fragment androidComponent,
+    protected void startActivityForResult(final Activity androidComponent,
                                           final Intent intent,
                                           final int requestCode) {
         androidComponent.startActivityForResult(intent, requestCode);
     }
 
     @Override
-    protected Activity getActivity(final Fragment androidComponent) {
-        return androidComponent.getActivity();
+    protected Activity getActivity(final Activity androidComponent) {
+        return androidComponent;
     }
 }

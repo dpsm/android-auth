@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.dpsmarques.android.auth;
+package com.github.dpsm.android.auth;
 
 import android.content.Context;
 import android.text.TextUtils;

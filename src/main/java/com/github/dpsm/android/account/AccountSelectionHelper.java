@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.dpsmarques.android.account;
+package com.github.dpsm.android.account;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -26,9 +26,9 @@ import com.google.android.gms.common.AccountPicker;
  * subclasses target specific Android components such as android.app.Activity and
  * android.app.Fragment.
  *
- * @see com.dpsmarques.android.account.activity.AccountSelectionActivityHelper
- * @see com.dpsmarques.android.account.fragment.AccountSelectionFragmentHelper
- * @see com.dpsmarques.android.account.fragment.AccountSelectionSupportFragmentHelper
+ * @see com.github.dpsm.android.account.activity.AccountSelectionActivityHelper
+ * @see com.github.dpsm.android.account.fragment.AccountSelectionFragmentHelper
+ * @see com.github.dpsm.android.account.fragment.AccountSelectionSupportFragmentHelper
  */
 public abstract class AccountSelectionHelper<T> {
 

@@ -1,10 +1,10 @@
-package com.dpsmarques.android.auth.activity;
+package com.github.dpsm.android.auth.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 
-import com.dpsmarques.android.auth.GoogleOAuthTokenOnSubscribe;
-import com.dpsmarques.android.auth.OperatorGoogleAuthenticationController;
+import com.github.dpsm.android.auth.GoogleOAuthTokenOnSubscribe;
+import com.github.dpsm.android.auth.OperatorGoogleAuthenticationController;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 

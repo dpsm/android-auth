@@ -1,4 +1,4 @@
-package com.dpsmarques.android.auth;
+package com.github.dpsm.android.auth;
 
 import android.app.Activity;
 import android.app.Fragment;

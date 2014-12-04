@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.dpsmarques.android.auth;
+package com.github.dpsm.android.auth;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -37,10 +37,10 @@ import rx.Subscriber;
  * <br/>
  * Concrete subclasses of this class target the respective components mentioned earlier.
  *
- * @see com.dpsmarques.android.auth.GoogleOauthTokenObservable
- * @see com.dpsmarques.android.auth.activity.OperatorGoogleAuthenticationActivityController
- * @see com.dpsmarques.android.auth.fragment.OperatorGoogleAuthenticationFragmentController
- * @see com.dpsmarques.android.auth.fragment.OperatorGoogleAuthenticationSupportFragmentController
+ * @see com.github.dpsm.android.auth.GoogleOauthTokenObservable
+ * @see com.github.dpsm.android.auth.activity.OperatorGoogleAuthenticationActivityController
+ * @see com.github.dpsm.android.auth.fragment.OperatorGoogleAuthenticationFragmentController
+ * @see com.github.dpsm.android.auth.fragment.OperatorGoogleAuthenticationSupportFragmentController
  *
  */
 public abstract class OperatorGoogleAuthenticationController<T>

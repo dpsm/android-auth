@@ -1,9 +1,11 @@
-package com.dpsmarques.android.account.fragment;
+package com.github.dpsm.android.account.fragment;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+
+import com.github.dpsm.android.account.fragment.AccountSelectionSupportFragmentHelper;
 
 import junit.framework.TestCase;
 
@@ -16,32 +18,32 @@ import org.robolectric.annotation.Config;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest=Config.NONE, emulateSdk = 18)
-public class AccountSelectionFragmentHelperTest extends TestCase {
+public class AccountSelectionSupportFragmentHelperTest extends TestCase {
 
     @Test(expected = IllegalArgumentException.class)
     public void givenNullFragmentThenInstantiationFails() {
-        new AccountSelectionFragmentHelper(null, 1);
+        new AccountSelectionSupportFragmentHelper(null, 1);
         fail("Instantiation should have failed.");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void givenFragmentNotImplementAccountSelectionListenerInstantiationFails() {
         final Fragment fragment = Mockito.mock(Fragment.class);
-        new AccountSelectionFragmentHelper(fragment, 1);
+        new AccountSelectionSupportFragmentHelper(fragment, 1);
         fail("Instantiation should have failed.");
     }
 
     @Test
     public void givenFragmentImplementsAccountSelectionListenerInstantiationSucceeds() {
         final AccountSelectionFragment fragment = Mockito.mock(AccountSelectionFragment.class);
-        AccountSelectionFragmentHelper helper = new AccountSelectionFragmentHelper(fragment, 1);
+        AccountSelectionSupportFragmentHelper helper = new AccountSelectionSupportFragmentHelper(fragment, 1);
         assertNotNull(helper);
     }
 
     @Test
     public void givenFragmentWhenAccountSelectedThenStartActivityForResultCalled() throws Exception {
         final AccountSelectionFragment fragment = Mockito.mock(AccountSelectionFragment.class);
-        AccountSelectionFragmentHelper helper = Mockito.spy(new AccountSelectionFragmentHelper(fragment, 1));
+        AccountSelectionSupportFragmentHelper helper = Mockito.spy(new AccountSelectionSupportFragmentHelper(fragment, 1));
         assertNotNull(helper);
 
         final Intent intent = Mockito.mock(Intent.class);
@@ -55,7 +57,7 @@ public class AccountSelectionFragmentHelperTest extends TestCase {
     @Test
     public void givenFragmentWhenOnActivityResultCalledWithCancellationThenListenerInvoked() {
         final AccountSelectionFragment fragment = Mockito.mock(AccountSelectionFragment.class);
-        AccountSelectionFragmentHelper helper = Mockito.spy(new AccountSelectionFragmentHelper(fragment, 1));
+        AccountSelectionSupportFragmentHelper helper = Mockito.spy(new AccountSelectionSupportFragmentHelper(fragment, 1));
         assertNotNull(helper);
 
         final Intent intent = Mockito.mock(Intent.class);
@@ -70,7 +72,7 @@ public class AccountSelectionFragmentHelperTest extends TestCase {
     @Test
     public void givenFragmentWhenOnActivityResultCalledWithSelectionThenListenerInvoked() {
         final AccountSelectionFragment fragment = Mockito.mock(AccountSelectionFragment.class);
-        AccountSelectionFragmentHelper helper = Mockito.spy(new AccountSelectionFragmentHelper(fragment, 1));
+        AccountSelectionSupportFragmentHelper helper = Mockito.spy(new AccountSelectionSupportFragmentHelper(fragment, 1));
         assertNotNull(helper);
 
         final Intent intent = Mockito.mock(Intent.class);
@@ -87,12 +89,12 @@ public class AccountSelectionFragmentHelperTest extends TestCase {
     public void givenFragmentWhenOnActivityResultCalledWithAnotherResultCodeThenListenerNeverInvoked() {
         final AccountSelectionFragment fragment = Mockito.mock(AccountSelectionFragment.class);
 
-        AccountSelectionFragmentHelper helper = Mockito.spy(new AccountSelectionFragmentHelper(fragment, 1));
+        AccountSelectionSupportFragmentHelper helper = Mockito.spy(new AccountSelectionSupportFragmentHelper(fragment, 1));
         assertNotNull(helper);
 
         final Intent intent = Mockito.mock(Intent.class);
         Mockito.doReturn(intent).when(helper).createAccountSelectionIntent(Matchers.any(String[].class));
-
+        
         helper.handleActivityResult(0, Activity.RESULT_OK, intent);
         helper.handleActivityResult(1, Activity.RESULT_OK, intent);
 
@@ -101,7 +103,7 @@ public class AccountSelectionFragmentHelperTest extends TestCase {
     }
 
     public static class AccountSelectionFragment extends Fragment
-            implements AccountSelectionFragmentHelper.AccountSelectionListener {
+            implements AccountSelectionSupportFragmentHelper.AccountSelectionListener {
 
         @Override
         public void onAccountSelected(final String accountName) {

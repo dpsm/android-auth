@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.dpsmarques.android.auth;
+package com.github.dpsm.android.auth;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -22,13 +22,12 @@ import android.content.Context;
 import android.os.Build;
 import android.text.TextUtils;
 
-import com.dpsmarques.android.auth.activity.OperatorGoogleAuthenticationActivityController;
-import com.dpsmarques.android.auth.fragment.OperatorGoogleAuthenticationFragmentController;
-import com.dpsmarques.android.auth.fragment.OperatorGoogleAuthenticationSupportFragmentController;
+import com.github.dpsm.android.auth.activity.OperatorGoogleAuthenticationActivityController;
+import com.github.dpsm.android.auth.fragment.OperatorGoogleAuthenticationFragmentController;
+import com.github.dpsm.android.auth.fragment.OperatorGoogleAuthenticationSupportFragmentController;
 
 import rx.Observable;
 import rx.android.observables.AndroidObservable;
-import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * This class implements an Observable that emits access tokens to access the Google APIs under

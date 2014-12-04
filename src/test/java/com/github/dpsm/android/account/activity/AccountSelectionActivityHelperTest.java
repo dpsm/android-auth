@@ -1,10 +1,9 @@
-package com.dpsmarques.android.account.activity;
+package com.github.dpsm.android.account.activity;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.dpsmarques.android.account.activity.AccountSelectionActivityHelper;
 import com.google.android.gms.common.AccountPicker;
 
 import junit.framework.TestCase;
