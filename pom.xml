@@ -75,9 +75,14 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.netflix.rxjava</groupId>
-            <artifactId>rxjava-android</artifactId>
-            <version>0.20.0-RC3</version>
+            <groupId>io.reactivex</groupId>
+            <artifactId>rxjava</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.reactivex</groupId>
+            <artifactId>rxandroid</artifactId>
+            <version>0.23.0</version>
         </dependency>
         <dependency>
             <groupId>com.android.support</groupId>
