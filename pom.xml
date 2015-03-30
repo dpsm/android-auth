@@ -2,14 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.dpsm</groupId>
-    <artifactId>android-auth</artifactId>
-    <version>2.0.1-SNAPSHOT</version>
+    <groupId>com.groundupworks.android</groupId>
+    <artifactId>google-auth</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>aar</packaging>
 
     <name>Android Auth</name>
     <description>Android Google Could Print client library.</description>
-    <url>https://github.com/dpsm/android-auth</url>
+    <url>http://www.groundupworks.com/</url>
 
     <licenses>
         <license>
@@ -20,16 +20,16 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:git://github.com/dpsm/android-auth.git</connection>
-        <developerConnection>scm:git:git@github.com:dpsm/android-auth.git</developerConnection>
-        <url>git@github.com:dpsm/android-auth</url>
+        <connection>scm:git:git://github.com/groundupworks/android-auth.git</connection>
+        <developerConnection>scm:git:git@github.com:groundupworks/android-auth.git</developerConnection>
+        <url>git@github.com:groundupworks/android-auth</url>
     </scm>
 
     <developers>
         <developer>
-            <id>dpsm</id>
-            <name>David Marques</name>
-            <email>dpsmarques@gmail.com</email>
+            <id>groundupworks</id>
+            <name>Ground Up Works</name>
+            <email>ground.up.works@gmail.com</email>
         </developer>
     </developers>
 
@@ -59,13 +59,13 @@
         <dependency>
             <groupId>android</groupId>
             <artifactId>android</artifactId>
-            <version>4.4.2_r3</version>
+            <version>5.0.1_r2</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.robolectric</groupId>
             <artifactId>robolectric</artifactId>
-            <version>2.3</version>
+            <version>2.4</version>
             <scope>test</scope>
         </dependency>
         <dependency>
